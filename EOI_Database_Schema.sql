@@ -1,8 +1,7 @@
 -- ============================================================
 -- EOI (Evidence of Insurability) Process Validation Database Schema
--- Version: 1.0
 -- Description: Complete DDL for EOI Application Processing,
---              Validation Engine, and Workflow Management
+-- Validation Engine, and Workflow Management
 -- ============================================================
 
 -- ============================================================
@@ -21,7 +20,6 @@ CREATE TABLE Employer_Group (
     termination_date    DATE,
     created_date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
     CONSTRAINT chk_employer_group_status CHECK (status IN ('ACTIVE', 'INACTIVE', 'PENDING', 'TERMINATED'))
 );
 
@@ -32,7 +30,6 @@ CREATE TABLE Group_Division (
     division_name       VARCHAR(255) NOT NULL,
     effective_date      DATE NOT NULL,
     status              VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
-
     FOREIGN KEY (group_id) REFERENCES Employer_Group(group_id),
     CONSTRAINT chk_division_status CHECK (status IN ('ACTIVE', 'INACTIVE', 'TERMINATED'))
 );
@@ -121,7 +118,6 @@ CREATE TABLE Member_Coverage (
     coverage_status     VARCHAR(20) NOT NULL DEFAULT 'ACTIVE' COMMENT 'ACTIVE, PENDING, TERMINATED, SUSPENDED',
     effective_date      DATE NOT NULL,
     termination_date    DATE,
-
     FOREIGN KEY (member_id) REFERENCES Member(member_id),
     FOREIGN KEY (plan_id) REFERENCES Insurance_Plan(plan_id),
     CONSTRAINT chk_coverage_status CHECK (coverage_status IN ('ACTIVE', 'PENDING', 'TERMINATED', 'SUSPENDED'))
@@ -163,10 +159,8 @@ CREATE TABLE Validation_Rule (
     severity            VARCHAR(20) NOT NULL DEFAULT 'ERROR' COMMENT 'INFO, WARNING, ERROR, CRITICAL',
     enabled             BOOLEAN DEFAULT TRUE,
     created_date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     CONSTRAINT chk_rule_severity CHECK (severity IN ('INFO', 'WARNING', 'ERROR', 'CRITICAL'))
 );
-
 CREATE TABLE Validation_Execution (
     execution_id        BIGINT PRIMARY KEY AUTO_INCREMENT,
     application_id      BIGINT NOT NULL,
@@ -188,14 +182,13 @@ CREATE TABLE Validation_Result (
     actual_value        TEXT COMMENT 'Actual value found during validation',
     message             TEXT COMMENT 'Human-readable validation message',
     created_date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (execution_id) REFERENCES Validation_Execution(execution_id),
     FOREIGN KEY (rule_id) REFERENCES Validation_Rule(rule_id)
 );
 
--- ============================================================
+-- =========================================
 -- 6. EXCEPTION & UNDERWRITING
--- ============================================================
+-- =========================================
 
 CREATE TABLE Underwriter (
     underwriter_id      BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -224,9 +217,9 @@ CREATE TABLE Exception_Queue (
     CONSTRAINT chk_exception_status CHECK (status IN ('OPEN', 'IN_PROGRESS', 'RESOLVED', 'ESCALATED'))
 );
 
--- ============================================================
+-- =========================================
 -- 7. WORKFLOW & AUDIT
--- ============================================================
+-- =========================================
 
 CREATE TABLE Workflow_History (
     workflow_id         BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -236,7 +229,6 @@ CREATE TABLE Workflow_History (
     changed_by          VARCHAR(100) NOT NULL COMMENT 'User ID or SYSTEM',
     changed_date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     comments            TEXT,
-
     FOREIGN KEY (application_id) REFERENCES EOI_Application(application_id)
 );
 
@@ -253,9 +245,9 @@ CREATE TABLE Audit_Log (
     FOREIGN KEY (application_id) REFERENCES EOI_Application(application_id)
 );
 
--- ============================================================
+-- ===========================================
 -- INDEXES FOR PERFORMANCE
--- ============================================================
+-- ===========================================
 
 CREATE INDEX idx_member_group ON Member(group_id);
 CREATE INDEX idx_member_division ON Member(division_id);

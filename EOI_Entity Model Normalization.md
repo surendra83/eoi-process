@@ -1,4 +1,5 @@
-# EOI Intake Process — Normalized Data Model
+# EOI Intake Process — Entity Model Normalization
+
 ## Overview
 This document defines the normalized entity-relationship data model for the Evidence of Insurability (EOI) Intake Process. The model is designed in **Third Normal Form (3NF)** to eliminate redundancy while maintaining referential integrity across the Financial Protection (FP) workflow.
 
@@ -13,20 +14,20 @@ This document defines the normalized entity-relationship data model for the Evid
                     ┌────────────┼────────────┐
                     │            │            │
                     ▼            ▼            ▼
-           ┌─────────────┐ ┌──────────┐ ┌─────────────────┐
-           │EOI_DOCUMENT │ │EOI_PRODUCT│ │HEALTH_QUESTIONNAIRE│
-           │  (Intake)   │ │  _LINE   │ │    (Responses)   │
-           └─────────────┘ └──────────┘ └─────────────────┘
+           ┌─────────────┐ ┌────────────┐ ┌─────────────────────┐
+           │EOI DOCUMENT │ │EOI PRODUCT │ │HEALTH QUESTIONNAIRE │
+           │  (Intake)   │ │  _LINE   │ │ │  (Responses)        │
+           └─────────────┘ └────────────┘ └─────────────────────┘
                     │            │            │
                     ▼            ▼            ▼
            ┌─────────────┐ ┌──────────┐ ┌─────────────────┐
-           │INDEXING_LOG │ │FP_PRODUCT│ │UNDERWRITING_    │
+           │INDEXING LOG │ │FP PRODUCT│ │UNDERWRITING     │
            │             │ │ (Lookup) │ │    REVIEW       │
            └─────────────┘ └──────────┘ └─────────────────┘
                                               │
                                               ▼
                                      ┌─────────────────┐
-                                     │UNDERWRITING_    │
+                                     │UNDERWRITING     │
                                      │   DECISION      │
                                      └─────────────────┘
 ```
