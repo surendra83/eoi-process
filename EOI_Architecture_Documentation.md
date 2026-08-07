@@ -35,7 +35,7 @@ The **EOI (Evidence of Insurability) Process Validation System** is a rule-based
 
 ```
 ┌───────────────────────────────────────────────────────────────────────┐
-│             EOI PROCESS VALIDATION ARCHITECTURE
+│             EOI PROCESS VALIDATION ARCHITECTURE                       |
 ├───────────────────────────────────────────────────────────────────────┤
 │                                                                       │
 │  ┌──────────────┐    ┌────────────────┐    ┌──────────────┐           │
@@ -436,19 +436,18 @@ Employer_Group (1) ───< (N) Group_Division
 ## 6. Process Flow
 
 ### 6.1 Standard EOI Application Lifecycle
-
 ```
-┌──────────┐     ┌──────────┐     ┌────────────┐     ┌─────────────┐     ┌──────────┐
-│  INTAKE  │────>│ VALIDATE │────>│  DECISION  │────>│ UNDERWRITE  │────>│  CLOSED  │
-│ (Submit) │     │  (Rules) │     │ (Auto/Man) │     │  (If Req'd) │     │ (Final)  │
-└──────────┘     └────┬─────┘     └─────┬──────┘     └─────────────┘     └──────────┘
-                      │                 │
-                      ▼                 ▼
-               ┌──────────┐      ┌──────────┐
-               │  PASS    │      │  FAIL    │
-               │ (Proceed)│      │ (Exception│
-               └──────────┘      │  Queue)  │
-                                  └──────────┘
+┌──────────┐     ┌──────────┐    ┌────────────┐    ┌─────────────┐   ┌────────────┐
+│  INTAKE  │────>│ VALIDATE │───>│  DECISION  │───>│ UNDERWRITE  │──>│  CLOSED    │
+│ (Submit) │     │ (Rules)  │    │ (Auto/Man) │    │ (If Req'd)  │   | (Final)    |
+└──────────┘     └────┬─────┘    └─────┬──────┘    └─────────────┘   └────────────┘
+                      │                │
+                      ▼                ▼
+               ┌──────────┐      ┌────────────┐
+               │  PASS    │      │  FAIL      │
+               │ (Proceed)│      │ (Exception │
+               └──────────┘      │  Queue)    │
+                                 └────────────┘
 ```
 
 ### 6.2 Detailed Process Steps
@@ -504,7 +503,6 @@ FOR each enabled_rule IN rules ORDER BY priority ASC:
 ---
 
 ## 8. Integration Patterns
-
 ### 8.1 Inbound Integrations
 
 | Source | Pattern | Data |
@@ -563,6 +561,5 @@ Key domain events published to message bus:
 | **Application Status** | Business outcome state (Submitted, Approved, Declined, etc.) |
 
 ---
-
 *Document generated from EOI_Validation_Process entity data model.*
 *For questions, contact the Architecture Team.*
