@@ -1,6 +1,6 @@
 ## Draft Entity Model
 
-![Data Model](Entity Model.png)
+![Data Model](/Entity%20Model.png)
 
 
 # EOI Intake Process — Entity Model Normalization
