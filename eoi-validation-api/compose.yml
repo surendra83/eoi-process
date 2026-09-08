@@ -1,0 +1,23 @@
+services:
+  eoi-validation-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: eoi-validation-api:${APP_VERSION:-latest}
+    container_name: eoi-validation-api-${DEPLOY_ENV:-dev}
+    env_file:
+      - ./deploy/env/${DEPLOY_ENV:-dev}.env
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    restart: unless-stopped
+    volumes:
+      - eoi-api-logs:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthcheck')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  eoi-api-logs:

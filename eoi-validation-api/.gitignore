@@ -1,0 +1,21 @@
+# Environment files
+.env
+.env.*
+*.env
+logs/*.log
+
+# Python cache files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments (optional)
+venv/
+.venv/
+env/
+
+# IDE files (optional)
+.vscode/
+.idea/
+.ipynb_checkpoints/

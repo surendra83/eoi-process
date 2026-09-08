@@ -1,0 +1,6 @@
+DB_SERVER=<host_name>
+DB_DATABASE=<Database_nsame>
+DB_USER=<db_user>
+DB_PASSWORD=<db_pwd>
+
+JWT_SECRET_KEY=0375f1dcac5270cd0fa922f735de9466219a4ec1534e4d2fa612337bbc59fce7f306bc949dc84e19b102a502de3fddc0adaa15fe76d309cd9f0458b31d54e950
