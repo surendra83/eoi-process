@@ -47,3 +47,14 @@ def date_formate_in_yyyy_mm_dd(inpdate: str):
         return datetime.fromisoformat(inpdate).date().isoformat()
     except (ValueError, TypeError):
         return None
+
+
+def number_percentage_format(value):
+    if value is None or value == "":
+        return None
+
+    text = str(value).strip()
+    if text.endswith("%"):
+        return text
+
+    return f"{text} %"
