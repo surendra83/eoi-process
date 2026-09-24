@@ -13,6 +13,7 @@ openpyxl
 numpy
 pandas
 httpx
+requests
 loguru
 python-jose[cryptography]
 passlib[bcrypt]

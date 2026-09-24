@@ -1,3 +1,4 @@
+import uuid
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from fastapi import status, Request
@@ -23,7 +24,11 @@ def get_search_group_policy(request: Request, db: Session = Depends(get_db)):
 
 @router.post("/reports",response_model=LifeDIGroupResponse)
 def get_details(group_request: GroupRequest, request: Request, db: Session = Depends(get_db)):
-    app_logger.info(f"Received request from client: {request.client.host}")
+    app_logger.bind(
+        log_id=str(uuid.uuid4()),
+        request_body=group_request.dict() if group_request else None,
+        execute_method="get_details"
+    ).info(f"Request received for groupNumber={group_request.groupNumber}")
     result = LifeDiGroupController.get_life_di_group_details(db=db,request=group_request)
     return result   
 

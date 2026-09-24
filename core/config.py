@@ -10,6 +10,8 @@ class Settings(BaseSettings):
 
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str = "HS256"
+    LOG_LEVEL: str = "INFO"
+    ENV: str = "development"
 
     model_config = SettingsConfigDict(
         env_file=".env",

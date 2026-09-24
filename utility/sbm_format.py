@@ -17,7 +17,7 @@ def format_date(value, output_format: str = OUTPUT_DATE_FORMAT):
     Returns the original value when it cannot be parsed, and None for empty input.
     """
     if value is None or value == "":
-        return None
+        return ''
 
     if isinstance(value, datetime):
         return value.strftime(output_format)
@@ -35,23 +35,23 @@ def format_date(value, output_format: str = OUTPUT_DATE_FORMAT):
         try:
             return datetime.fromisoformat(text.replace("Z", "+00:00")).strftime(output_format)
         except ValueError:
-            return value
+            return ''
 
-    return value
+    return ''
 
 def date_formate_in_yyyy_mm_dd(inpdate: str):
     if not inpdate:  # handles None, '', etc.
-        return None
+        return ''
 
     try:
         return datetime.fromisoformat(inpdate).date().isoformat()
     except (ValueError, TypeError):
-        return None
+        return ''
 
 
 def number_percentage_format(value):
     if value is None or value == "":
-        return None
+        return ''
 
     text = str(value).strip()
     if text.endswith("%"):

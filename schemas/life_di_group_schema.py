@@ -1,9 +1,15 @@
 # schemas/life_di_groups_schema.py
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Dict, Any, Optional, List
 
 class GroupRequest(BaseModel):
-    groupNumber: str
+    groupNumber: str = Field(
+        ...,
+        pattern=r"^\d+$",
+        examples=["303191"],
+        min_length=3,
+        description="A numeric group number with at least 3 digits"
+    )
 
 class ContactInformation(BaseModel):
     division_information: Dict[str, Any]
@@ -14,8 +20,8 @@ class ContactInformation(BaseModel):
 class LifeDIGroupResponse(BaseModel):
     group_information: Dict[str, Any]
     contact_information: List[ContactInformation]
-    product_information: Dict[str, Any]
-    sold_class_benefits_rates_information: List[Dict[str, Any]]
     eligibility: List[Dict[str, Any]]
+    product_information: Dict[str, Any]
+   
     
     

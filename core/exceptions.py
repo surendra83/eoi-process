@@ -1,5 +1,6 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 
 
 class APIException(Exception):
@@ -14,5 +15,38 @@ async def api_exception_handler(request: Request, exc: APIException):
         content={
             "status_code": exc.status_code,
             "messages": exc.messages,
+        },
+    )
+
+async def request_validation_exception_handler(request: Request, exc: RequestValidationError):
+    errors = []
+    for error in exc.errors():
+        if error["type"] == "json_invalid":
+            errors.append({
+                "field": "request",
+                "message": "Invalid request",
+            })
+            continue
+
+        field = ".".join(
+            str(location)
+            for location in error["loc"]
+            if location != "body"
+        )
+
+        message = error["msg"]
+        if error["type"] == "string_pattern_mismatch":
+            message = f"{field} must contain only numeric digits"
+
+        errors.append({
+            "field": field,
+            "message": message,
+        })
+
+    return JSONResponse(
+        status_code=422,
+        content={
+            "status_code": 422,
+            "errors": errors,
         },
     )
